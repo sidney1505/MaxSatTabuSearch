@@ -64,19 +64,12 @@ private:
 	}
 
 public:
-	MaxSatTabuSearch(vector<vector<int>> conds) {
+	MaxSatTabuSearch(vector<vector<int>> conds, number_of_variables) {
 		this->conds = conds;
 		// TODO Anzahl Klauseln bestimmen
 		// number_of_variables = ...
+		// sind gegeben im Dimacs-Format!
 		vector<bool> bestSolutionFound(number_of_variables);
 		vector<bool> current_solution(number_of_variables);
-	}
-
-	void run() {
-		init();
-		do {
-			actualiseNeighbourhood();
-			actualiseCurrentSolution();
-		} while(!break_condition);
 	}
 }
