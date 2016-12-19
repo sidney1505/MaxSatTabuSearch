@@ -1,12 +1,15 @@
 class TabuSearch : SMetaheuristic {
 public:
 	void run() {
-		for(uint_64 i = 0; i < MAX_ITERATIONS; i++) {
-			chooseNext();
-		}
+		init();
+		do {
+			actualiseNeighbourhood();
+			actualiseCurrentSolution();
+		} while(!break_condition);
 	}
+
 private:
 	TabuList<Solution> tl;
-	virtual vector<Solution> getNeighbourhood();
+	virtual *vector<Solution> getNeighbourhood();
 	virtual void chooseNext();
 }

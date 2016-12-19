@@ -1,7 +1,8 @@
 class TabuList {
 private:
 	uint_64 max_elements;
-	set<Solution> tabulist;
+	map<Solution,Solution> tabulist;
+	Solution last_in; //pointer verwenden
 
 public:
 	TabuList(uint_64 max_els) {
@@ -9,7 +10,10 @@ public:
 	}
 
 	void emplace(Solution solution) {
-		
+
 	}
 
+	bool contains(Solution solution) {
+
+	}
 }
