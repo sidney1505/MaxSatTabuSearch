@@ -1,4 +1,6 @@
-#include <fstream>
+# include <fstream>
+# include "Reader.h"
+
 using namespace std;
 
 class Reader {

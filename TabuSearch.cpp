@@ -1,3 +1,5 @@
+# include "TabuSearch.h"
+
 class TabuSearch : SMetaheuristic {
 public:
 	void run() {
