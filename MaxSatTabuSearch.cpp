@@ -2,13 +2,15 @@
 
 class MaxSatTabuSearch {
 private:
-	// innerer vektor beginnt erst bei 1
-	vector<vector<pair<int,bool>>> conds;
-	vector<bool> bestSolutionFound; //TODO Bezug auf Template??
+	// mapt Variablen zu Klauseln (entweder positiv oder negativ)
+	vector<vector<pair<uint,bool>>> conds;
+	//TODO Bezug auf Template??
+	vector<bool> bestSolutionFound;
 	vector<bool> current_solution;
 	// Optimierung um Kopieren zu vermeiden
-	vector<vector<bool>> current_neighboorhood;
-	// letztes gekippte bit
+	// Vektor, der Tupel aus Belegung, deren Credits und derem Score enthält
+	vector<tuple<vector<bool>,vector<uint>,uint> current_neighboorhood; // Klasse auslagern
+	// letztes gekippte bit, wird 
 	int last_changed;
 
 	void init() {
@@ -18,11 +20,11 @@ private:
 			current_solution[i] = randbool;
 		}
 		bestSolutionFound = current_solution;
-		current_neighboorhood = *getNeighbourhood()
+		current_neighboorhood = *get_initial_neighbourhood();
 	}
 
 	//Verwendung um initiale nachbarschaft zu erhalten
-	*vector<vector<bool>> getNeighbourhood(vector<bool> &solution) {
+	*vector<vector<bool>> initial_neighbourhood(vector<bool> &solution) {
 		// klassenvariablen oder lokale variablen???
 		vector<vector<bool>> neighbourhood(solution.size(), vector<bool>(solution.size()));
 		vector<bool> it = *solution;
@@ -35,22 +37,12 @@ private:
 			it[i] = !it[i];
 			neighbourhood[i] = it[i];
 		}
-		// hardcopy vermeiden, daher link
+		// hardcopy vermeiden, daher pointer
 		return &neighbourhood;
 	}
 
-	// Optimierte Version
-	void actualiseNeighbourhood() {
-		for(int i = 0; i < solution.size(); i++) {
-			current_neighboorhood[i][i] = !current_neighboorhood[i][i];
-			current_neighboorhood[i][last_changed] = !current_neighboorhood[i][last_changed];			
-		}
-		current_neighboorhood[last_changed][last_changed] = !current_neighboorhood[last_changed][last_changed];
-		// TODO direkte Evaluation der neuen Nachbarschaft
-	}
-
-	//
-	int naive_eval(vector<bool> &solution) {
+	// nötig um initiale Evaluation zu erhalten
+	int initial_evaluation(vector<bool> &solution) {
 		int score = 0;
 		for(int i = 0; i < conds.size(); i++) {
 			for(int j = 1; j < conds[i].size(); j++) {
@@ -61,6 +53,15 @@ private:
 			}
 		}
 		return score;
+	}
+
+	// Optimierte Version
+	void neighbourhood() {
+		for(int i = 0; i < solution.size(); i++) {
+			current_neighboorhood[i][last_changed] = !current_neighboorhood[i][last_changed];
+
+		}
+		// TODO direkte Evaluation der neuen Nachbarschaft
 	}
 
 public:

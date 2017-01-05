@@ -1,4 +1,4 @@
-template <typeName Solution>
+template <typeName Solution> // template comparable
 class SMetaheuristic {
 public:
 	virtual void run();
