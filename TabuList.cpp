@@ -1,4 +1,7 @@
+# include "TabuList.h"
+
 class TabuList {
+
 private:
 	uint max_elements;
 	uint current_elements;
