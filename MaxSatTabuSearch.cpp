@@ -1,4 +1,9 @@
 # include <stdlib.h>
+# include <iostream>
+# include <vector>
+# include <time.h>
+
+using namespace std;
 
 class MaxSatTabuSearch {
 private:
@@ -9,22 +14,22 @@ private:
 	vector<bool> current_solution;
 	// Optimierung um Kopieren zu vermeiden
 	// Vektor, der Tupel aus Belegung, deren Credits und derem Score enthält
-	vector<tuple<vector<bool>,vector<uint>,uint> current_neighboorhood; // Klasse auslagern
+	vector<tuple<vector<bool>,vector<uint>,uint>> current_neighboorhood; // Klasse auslagern
 	// letztes gekippte bit, wird 
 	int last_changed;
 
 	void init() {
-		for(i = 0; i < current_solution.size(); i++) {
-			srand(); // benötigte libraries?
+		for(int i = 0; i < current_solution.size(); i++) {
+			srand(0); // benötigte libraries?
 			bool randbool = rand() & 1; // cast richtig?
 			current_solution[i] = randbool;
 		}
 		bestSolutionFound = current_solution;
-		current_neighboorhood = *get_initial_neighbourhood();
+		current_neighboorhood = initial_neighbourhood(current_solution);
 	}
 
 	//Verwendung um initiale nachbarschaft zu erhalten
-	*vector<vector<bool>> initial_neighbourhood(vector<bool> &solution) {
+	vector<vector<bool>> initial_neighbourhood(vector<bool> &solution) {
 		// klassenvariablen oder lokale variablen???
 		vector<vector<bool>> neighbourhood(solution.size(), vector<bool>(solution.size()));
 		vector<bool> it = *solution;
@@ -38,8 +43,8 @@ private:
 			neighbourhood[i] = it[i];
 		}
 		// hardcopy vermeiden, daher pointer
-		return &neighbourhood;
-	}
+		return neighbourhood;
+	};
 
 	// nötig um initiale Evaluation zu erhalten
 	int initial_evaluation(vector<bool> &solution) {
@@ -65,12 +70,12 @@ private:
 	}
 
 public:
-	MaxSatTabuSearch(vector<vector<int>> conds, number_of_variables) {
+	MaxSatTabuSearch(vector<vector<int>> conds, int number_of_variables) {
 		this->conds = conds;
 		// TODO Anzahl Klauseln bestimmen
 		// number_of_variables = ...
 		// sind gegeben im Dimacs-Format!
 		vector<bool> bestSolutionFound(number_of_variables);
 		vector<bool> current_solution(number_of_variables);
-	}
-}
+	};
+};
