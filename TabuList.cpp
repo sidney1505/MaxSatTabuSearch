@@ -33,4 +33,4 @@ public:
 	bool contains(Solution solution) {
 		return tabulist.find(solution) == tabulist.end();
 	}
-}
+};

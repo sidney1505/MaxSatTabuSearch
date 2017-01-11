@@ -33,3 +33,15 @@ string Clauses::to_string() {
 	}
 	return s;
 }
+
+int Clauses::get_nbclauses() {
+	return nbclauses;
+}
+
+int Clauses::get_nbvars() {
+	return nbvars;
+}
+
+vector<vector<pair<int,bool>>>* Clauses::get_vars() {
+	return vars;
+}

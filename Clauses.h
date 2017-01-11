@@ -14,4 +14,6 @@ private:
 public:
 	Clauses(vector<vector<pair<int,bool>>> clauses, int nbvars, int nbclauses);
 	string to_string();
+	int get_nbclauses();
+	int get_nbvars();
 };

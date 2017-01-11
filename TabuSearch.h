@@ -1,8 +1,10 @@
+# include "SMetaheuristic.h"
+
+using namespace std;
+
 class TabuSearch : SMetaheuristic {
-
-	public: void run();
-
-	private: TabuList<Solution> tl;
-	private: virtual *vector<Solution> getNeighbourhood();
-	private: virtual void chooseNext();
-}
+	TabuList<Solution> tl;
+	virtual *vector<Solution> neighbourhood();
+	virtual Solution next();
+	virtual void updateTabulist(Solution current_solution);
+};

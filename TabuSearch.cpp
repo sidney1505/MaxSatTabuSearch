@@ -1,17 +1,15 @@
-# include "TabuSearch.h"
+#include <stdlib.h>
+#include "TabuSearch.h"
 
-class TabuSearch : SMetaheuristic {
-public:
-	void run() {
-		init();
-		do {
-			actualiseNeighbourhood();
-			actualiseCurrentSolution();
-		} while(!break_condition);
-	}
+using namepspace std;
 
-private:
-	TabuList<Solution> tl;
-	virtual *vector<Solution> getNeighbourhood();
-	virtual void chooseNext();
+void TabuSearch::run() {
+	init();
+	uint i = 0;
+	do {
+		neighbourhood();
+		current_solution = next();
+		updateTabulist(current_solution);
+		i++;
+	} while(i < 1000000);
 }

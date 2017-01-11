@@ -1,23 +1,25 @@
-class MaxSatTabuSearch {
+#include <vector>
+#include <stdlib.h>
+#include "Clauses.h"
 
-	// innerer vektor beginnt erst bei 1
-	private:vector<vector<pair<int,bool>>> conds;
-	private:vector<bool> bestSolutionFound; //TODO Bezug auf Template??
-	private: vector<bool> current_solution;
+using namespace std;
+
+// TODO Template-Paramter mit Vererbung festlegen
+class MaxSatTabuSearch:TabuSearch {
+private:
+	// ACHTUNG innerer vektor beginnt erst bei 1
+	Clauses* clauses;
 	// Optimierung um Kopieren zu vermeiden
-	private:vector<vector<bool>> current_neighboorhood;
+	vector<vector<bool>> current_neighboorhood;
 	// letztes gekippte bit
-	private:int last_changed;
-	
-	private:void init();
+	int last_changed;
+
+public:
+	void init();
 	//Verwendung um initiale nachbarschaft zu erhalten
-	private:*vector<vector<bool>> getNeighbourhood(vector<bool> &solution);
-
+	*vector<vector<bool>> getNeighbourhood(vector<bool> &solution);
 	// Optimierte Version
-	private:void actualiseNeighbourhood();
-	
-	private:int naive_eval(vector<bool> &solution);
-
-
-	public:MaxSatTabuSearch(vector<vector<int>> conds, number_of_variables);
-}
+	void neighbourhood();	
+	int naive_eval(vector<bool> &solution);
+	MaxSatTabuSearch(vector<vector<int>> conds, number_of_variables);
+};

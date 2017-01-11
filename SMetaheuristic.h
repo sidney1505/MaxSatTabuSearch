@@ -1,12 +1,10 @@
-//template <typeName Solution> muss das auch in die .h Datei ? 
-
+template <typeName Solution> // template comparable
 class SMetaheuristic {
-
-	public: virtual void run();
-	public: virtual double eval(Solution);
-	public: virtual void init();
-
-
-	private: Solution bestSolutionFound;
-	private: Solution currentSolution;
+	Solution bestSolutionFound;
+	Solution currentSolution;
+	
+public:
+	virtual void run();
+	virtual double eval(Solution);
+	virtual void init();
 };
