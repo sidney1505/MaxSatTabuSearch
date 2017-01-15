@@ -7,6 +7,10 @@
 
 using namespace std;
 
+Clauses::Clauses() {
+	
+}
+
 Clauses::Clauses(vector<vector<pair<int,bool>>> clauses, int nbvars, int nbclauses) {
 	this->nbvars = nbvars;
 	this->nbclauses = nbclauses;
