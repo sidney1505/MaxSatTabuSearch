@@ -19,8 +19,10 @@ int main(int argc, char *argv[]) {
 	vector<bool> initial_solution(reader.get_nbvars());
 	Neighbourhood nh(initial_solution, clauses);
 	cout << endl << "Neighbourhood: " << endl << nh.to_string() << endl << endl;
-	auto best_neighbour = nh.get_best_neighbour();
-	nh.update(get<1>(best_neighbour));
-	cout << endl << "Neighbourhood after update: " << endl << nh.to_string() << endl << endl;
-	cout << endl << std::to_string(get<1>(nh.get_best_neighbour())) << endl;
+	for(int i = 0; i < 4; i++) {
+		auto best_neighbour = nh.get_best_neighbour();
+		nh.update(get<1>(best_neighbour));
+		cout << endl << "Neighbourhood after update: " << endl << nh.to_string() << endl << endl;
+		cout << endl << std::to_string(get<1>(nh.get_best_neighbour())) << endl;
+	}
 }

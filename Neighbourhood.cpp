@@ -2,8 +2,15 @@
 
 using namespace std;
 
+Neighbourhood::Neighbourhood() {
+
+}
+
 Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses) {
+	this->current_occupancy = initial_solution;
 	this->clauses = clauses;
+	tabulist = new Tabulist/*<vector<bool>>*/(1000); //default-Wert, muss noch Hyperparamter werden!
+	(*tabulist).emplace(initial_solution);
 	int nbvars = initial_solution.size();
 	occupancies = new vector<vector<bool>>(nbvars, vector<bool>(nbvars));
 	scores = new vector<int>(nbvars);
@@ -22,15 +29,15 @@ Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses) {
 }
 
 void Neighbourhood::update(int modified_bit) {
+	current_occupancy[modified_bit] = !current_occupancy[modified_bit];
+	tabulist->emplace(current_occupancy);
 	// TODO Tabuliste beachten!!!
-	cout << "A" << endl;
-	for(int i = 0; i < (*occupancies).size(); i++) {
-		cout << "B" << endl;
-		toggleBit((*occupancies)[i], (*scores)[i], (*clause_credits)[i], modified_bit);
-		if((*scores)[i] > (*scores)[best_neighbour]) {
+	best_neighbour = 0;
+	for(int i = 0; i < occupancies->size(); i++) {
+		cout << std::to_string((*scores)[i]) << " " << std::to_string((*scores)[best_neighbour]) << endl;
+		if((*scores)[i] > (*scores)[best_neighbour] && !tabulist->contains((*occupancies)[i])) {
 			best_neighbour = i;
 		}
-		cout << "C" << endl;
 	}
 }
 
@@ -92,5 +99,6 @@ string Neighbourhood::to_string() {
 		}
 		s += ")\n";
 	}
+	s += (*tabulist).to_string();
 	return s;
 }
