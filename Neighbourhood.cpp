@@ -34,7 +34,8 @@ void Neighbourhood::update(int modified_bit) {
 	// TODO Tabuliste beachten!!!
 	best_neighbour = 0;
 	for(int i = 0; i < occupancies->size(); i++) {
-		cout << std::to_string((*scores)[i]) << " " << std::to_string((*scores)[best_neighbour]) << endl;
+		// cout << std::to_string((*scores)[i]) << " " << std::to_string((*scores)[best_neighbour]) << endl;
+		toggleBit((*occupancies)[i], (*scores)[i], (*clause_credits)[i], modified_bit);
 		if((*scores)[i] > (*scores)[best_neighbour] && !tabulist->contains((*occupancies)[i])) {
 			best_neighbour = i;
 		}
