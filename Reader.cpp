@@ -1,7 +1,3 @@
-# include <fstream>
-# include <sstream>
-# include <stdlib.h>
-# include <iostream>
 # include "Reader.h"
 
 using namespace std;

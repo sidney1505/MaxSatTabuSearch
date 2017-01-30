@@ -6,10 +6,10 @@ Neighbourhood::Neighbourhood() {
 
 }
 
-Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses) {
+Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist* tl) {
 	this->current_occupancy = initial_solution;
 	this->clauses = clauses;
-	tabulist = new Tabulist/*<vector<bool>>*/(1000); //default-Wert, muss noch Hyperparamter werden!
+	tabulist = tl;
 	(*tabulist).emplace(initial_solution);
 	int nbvars = initial_solution.size();
 	occupancies = new vector<vector<bool>>(nbvars, vector<bool>(nbvars));

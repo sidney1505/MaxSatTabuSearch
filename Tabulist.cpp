@@ -1,5 +1,3 @@
-#include <vector>
-#include <iostream>
 #include "Tabulist.h"
 
 using namespace std;
