@@ -1,12 +1,12 @@
 #include "TabuSearch.h"
 
-using namepspace std;
+using namespace std;
 
 void TabuSearch::run() {
 	init();
 	int i = 0;
 	do {
-		neighbourhood();
+		update_neighbourhood();
 		next();
 		i++;
 	} while(i < 1000);
