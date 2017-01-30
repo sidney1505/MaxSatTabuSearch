@@ -5,11 +5,10 @@ using namepspace std;
 
 void TabuSearch::run() {
 	init();
-	uint i = 0;
+	int i = 0;
 	do {
 		neighbourhood();
-		current_solution = next();
-		updateTabulist(current_solution);
+		next();
 		i++;
-	} while(i < 1000000);
+	} while(i < 1000);
 }

@@ -3,6 +3,7 @@
 #include <tuple>
 #include "Reader.h"
 #include "Neighbourhood.h"
+#include "MaxSatTabuSearch.h"
 
 using namespace std;
 
