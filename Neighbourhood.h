@@ -5,14 +5,14 @@
 #include <utility>
 #include <tuple>
 #include "Clauses.h"
-#include "Tabulist.h"
+#include "Tabulist.cpp"
 
 using namespace std;
 
 class Neighbourhood {
 private:
 	Clauses clauses;
-	Tabulist/*<vector<bool>>*/* tabulist;
+	Tabulist<vector<bool>>* tabulist;
 	int best_neighbour = 0;
 	vector<vector<bool>>* occupancies;
 	vector<int>* scores;
@@ -22,7 +22,7 @@ private:
 
 public:
 	Neighbourhood();
-	Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist* tl);
+	Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist<vector<bool>>* tl);
 	void update(int modified_bit);
 	// -> (belegung, modified_bit, score)
 	tuple<vector<bool>,int,int> get_best_neighbour();

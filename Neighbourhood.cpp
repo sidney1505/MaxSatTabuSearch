@@ -6,7 +6,7 @@ Neighbourhood::Neighbourhood() {
 
 }
 
-Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist* tl) {
+Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist<vector<bool>>* tl) {
 	this->current_occupancy = initial_solution;
 	this->clauses = clauses;
 	tabulist = tl;
@@ -100,6 +100,6 @@ string Neighbourhood::to_string() {
 		}
 		s += ")\n";
 	}
-	s += (*tabulist).to_string();
+	// s += (*tabulist).to_string();
 	return s;
 }

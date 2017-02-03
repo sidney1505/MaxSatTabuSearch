@@ -3,22 +3,21 @@
 
 using namespace std;
 
-// template <typename Solution>
-
+template <typename Solution>
 class Tabulist {
 private:
 	int max_elements;
 	int current_elements;
 	bool is_full = false;
 	// Jede Solution ist zu der naechsten Solution gemappt
-	map<vector<bool>,vector<bool>>* tabulist;
-	vector<bool> last_in; // map pointer verwenden
-	vector<bool> first_in;
+	map<Solution,Solution>* tabulist;
+	Solution last_in; // map pointer verwenden
+	Solution first_in;
 
 public:
 	Tabulist();
 	Tabulist(int max_elements);
-	void emplace(vector<bool> solution);
-	bool contains(vector<bool> solution);
-	string to_string();
+	void emplace(Solution solution);
+	bool contains(Solution solution);
+	// string to_string();
 };

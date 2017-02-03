@@ -2,12 +2,21 @@
 
 using namespace std;
 
-void TabuSearch::run() {
+template <typename Solution>
+void TabuSearch<Solution>::run() {
 	init();
 	int i = 0;
 	do {
+		if(augment)  {
+			cout << "iteration " << to_string(i) << endl;
+		}
 		update_neighbourhood();
 		next();
 		i++;
-	} while(i < 1000);
+	} while(i < max_iterations);
+	cout << "Best Solution found is ";
+	/*for(int i = 0; i < best_solution_found.size(); i++) {
+		cout << to_string(best_solution_found[i]);
+	}*/
+	cout << " with score " << to_string(best_score) << endl;
 }
