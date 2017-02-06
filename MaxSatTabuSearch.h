@@ -9,10 +9,10 @@ class MaxSatTabuSearch : public TabuSearch<vector<bool>> {
 private:
 	Neighbourhood* neighbourhood;
 public:
-	int eval(vector<bool> solution);
 	void init();
 	void update_neighbourhood();
 	int next();
+	int eval(std::vector<bool> solution);
 	MaxSatTabuSearch(Clauses &clauses, int nbvars, int max_tabu_els, int max_iterations, 
 		bool augment);
 };

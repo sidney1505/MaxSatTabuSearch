@@ -1,10 +1,10 @@
-template <typeName Solution> // template comparable
+template <typename Solution> // template comparable
 class SMetaheuristic {
-	Solution bestSolutionFound;
-	Solution currentSolution;
-	
 public:
-	virtual void run();
-	virtual double eval(Solution);
-	virtual void init();
+	Solution current_solution;
+	Solution best_solution_found;
+	int best_score;
+	virtual void run() = 0;
+	virtual int eval(Solution solution) = 0;
+	virtual void init() = 0;
 };

@@ -4,7 +4,7 @@ using namespace std;
 
 template <typename Solution>
 void TabuSearch<Solution>::run() {
-	init();
+	//SMetaheuristic<Solution>::init(); // undefined reference???
 	int i = 0;
 	do {
 		if(augment)  {
@@ -18,5 +18,5 @@ void TabuSearch<Solution>::run() {
 	/*for(int i = 0; i < best_solution_found.size(); i++) {
 		cout << to_string(best_solution_found[i]);
 	}*/
-	cout << " with score " << to_string(best_score) << endl;
+	cout << " with score " << to_string(SMetaheuristic<Solution>::best_score) << endl;
 }

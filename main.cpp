@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// g++ -std=c++11 main.cpp Clauses.cpp Reader.cpp Neighbourhood.cpp Tabulist.cpp MaxSatTabuSearch.cpp
+// g++ -std=c++11 main.cpp Clauses.cpp Reader.cpp Neighbourhood.cpp Tabulist.cpp MaxSatTabuSearch.cpp TabuSearch.cpp
 int main(int argc, char *argv[]) {
 	if(argc != 5) {
 		cout << "wrong count of parameters" << endl;
