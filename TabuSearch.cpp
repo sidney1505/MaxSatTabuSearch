@@ -8,15 +8,20 @@ void TabuSearch<Solution>::run() {
 	int i = 0;
 	do {
 		if(augment)  {
-			cout << "iteration " << to_string(i) << endl;
+			cout << "Current Solution is " << sol_to_string(SMetaheuristic<Solution>::current_solution);
+			cout << " with score " << to_string(SMetaheuristic<Solution>::best_score) << endl;
+			cout << "Best Solution found is " << sol_to_string(SMetaheuristic<Solution>::best_solution_found);
+			cout << " with score " << to_string(SMetaheuristic<Solution>::best_score) << endl << endl;
+			if(i == 0) {
+				cout << "Neighbourhood after " << to_string(i + 1) << " Iteration:" << endl;
+			} else {
+				cout << "Neighbourhood after " << to_string(i + 1) << " Iterations:" << endl;
+			}
 		}
 		update_neighbourhood();
 		next();
 		i++;
 	} while(i < max_iterations);
-	cout << "Best Solution found is ";
-	/*for(int i = 0; i < best_solution_found.size(); i++) {
-		cout << to_string(best_solution_found[i]);
-	}*/
+	cout << "Best Solution found is " << sol_to_string(SMetaheuristic<Solution>::best_solution_found);
 	cout << " with score " << to_string(SMetaheuristic<Solution>::best_score) << endl;
 }

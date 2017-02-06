@@ -19,5 +19,6 @@ public:
 	Tabulist(int max_elements);
 	void emplace(Solution solution);
 	bool contains(Solution solution);
+	map<Solution,Solution>* get_tabulist();
 	// string to_string();
 };

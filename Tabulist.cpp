@@ -34,6 +34,11 @@ bool Tabulist<Solution>::contains(Solution solution) {
 	return tabulist->find(solution) != tabulist->end();
 }
 
+template <typename Solution>
+map<Solution,Solution>* Tabulist<Solution>::get_tabulist() {
+	return tabulist;
+}
+
 /*
 string Tabulist::to_string() {
 	string s = "tabulist:\n";

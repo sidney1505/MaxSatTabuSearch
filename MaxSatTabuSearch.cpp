@@ -13,7 +13,7 @@ void MaxSatTabuSearch::update_neighbourhood() {
 		best_solution_found = current_solution;
 	}
 	if(augment) {
-		cout << endl << "Neighbourhood: " << endl << neighbourhood->to_string() << endl << endl;
+		cout <<  neighbourhood->to_string() << endl << endl;
 	}
 }
 
@@ -35,10 +35,19 @@ MaxSatTabuSearch::MaxSatTabuSearch(Clauses &clauses, int nbvars, int max_tabu_el
 	best_solution_found = initial_solution;
 	neighbourhood = new Neighbourhood(initial_solution, clauses, tabulist);
 	best_score = eval(best_solution_found);
-	cout << "size " << to_string(current_solution.size()) << endl;
 	if(augment) {
-		cout << "augment: " << to_string(augment) << endl;
-		// cout << endl << "Neighbourhood: " << endl << neighbourhood->to_string() << endl << endl;
+		cout << "Current Solution is " << sol_to_string(TabuSearch<vector<bool>>::SMetaheuristic<vector<bool>>::current_solution);
+		cout << " with score " << to_string(TabuSearch<vector<bool>>::SMetaheuristic<vector<bool>>::best_score) << endl;
+		cout << "Best Solution found is " << sol_to_string(TabuSearch<vector<bool>>::SMetaheuristic<vector<bool>>::best_solution_found);
+		cout << " with score " << to_string(TabuSearch<vector<bool>>::SMetaheuristic<vector<bool>>::best_score) << endl;
+		cout << endl << "Initial Neighbourhood: " << endl << neighbourhood->to_string() << endl << endl;
 	}
 }
 
+string MaxSatTabuSearch::sol_to_string(vector<bool> solution) {
+	string s = "";
+	for(int i = 0; i < solution.size(); i++) {
+		s += to_string(solution[i]);
+	}
+	return s;
+}

@@ -1,0 +1,1 @@
+g++ -std=c++11 main.cpp Clauses.cpp Reader.cpp Neighbourhood.cpp Tabulist.cpp MaxSatTabuSearch.cpp TabuSearch.cpp && ./a.out sample.txt 10 7 1

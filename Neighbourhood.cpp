@@ -31,10 +31,8 @@ Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, T
 void Neighbourhood::update(int modified_bit) {
 	current_occupancy[modified_bit] = !current_occupancy[modified_bit];
 	tabulist->emplace(current_occupancy);
-	// TODO Tabuliste beachten!!!
 	best_neighbour = 0;
 	for(int i = 0; i < occupancies->size(); i++) {
-		// cout << std::to_string((*scores)[i]) << " " << std::to_string((*scores)[best_neighbour]) << endl;
 		toggleBit((*occupancies)[i], (*scores)[i], (*clause_credits)[i], modified_bit);
 		if((*scores)[i] > (*scores)[best_neighbour] && !tabulist->contains((*occupancies)[i])) {
 			best_neighbour = i;
@@ -85,7 +83,11 @@ tuple<vector<bool>,int,int> Neighbourhood::get_best_neighbour() {
 }
 
 string Neighbourhood::to_string() {
-	string s = "Best valid Neighbour: " + std::to_string(best_neighbour) + "\n";
+	string s = "Best valid Neighbour: ";
+	for(int i = 0; i < (*occupancies)[best_neighbour].size(); i++) {
+		s += std::to_string((*occupancies)[best_neighbour][i]);
+	}
+	s += "\n";
 	for(int i = 0; i < (*occupancies).size(); i++) {
 		s += std::to_string(i) + " ";
 		for(int j = 0; j < (*occupancies)[i].size(); j++) {
@@ -100,6 +102,12 @@ string Neighbourhood::to_string() {
 		}
 		s += ")\n";
 	}
-	// s += (*tabulist).to_string();
+	s += "Tabulist: ";
+	for(auto it = tabulist->get_tabulist()->begin(); it != tabulist->get_tabulist()->end(); it++) {
+		for(int i = 0; i < it->first.size(); i++) {
+			s += std::to_string(it->first[i]);
+		}
+		s += "  ";
+	}
 	return s;
 }

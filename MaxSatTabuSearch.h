@@ -9,6 +9,7 @@ class MaxSatTabuSearch : public TabuSearch<vector<bool>> {
 private:
 	Neighbourhood* neighbourhood;
 public:
+	string sol_to_string(vector<bool> solution);
 	void init();
 	void update_neighbourhood();
 	int next();
