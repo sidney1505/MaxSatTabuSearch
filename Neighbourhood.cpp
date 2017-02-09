@@ -7,16 +7,22 @@ Neighbourhood::Neighbourhood() {
 }
 
 Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist<vector<bool>>* tl) {
+	//cout << "create neighbourhood instance!" << endl;
 	this->current_occupancy = initial_solution;
 	this->clauses = clauses;
 	tabulist = tl;
 	(*tabulist).emplace(initial_solution);
 	int nbvars = initial_solution.size();
 	occupancies = new vector<vector<bool>>(nbvars, vector<bool>(nbvars));
+	//cout << "A" << endl;
 	scores = new vector<int>(nbvars);
+	//cout << "AA" << endl;
 	clause_credits = new vector<vector<int>>(nbvars, vector<int>(clauses.get_nbclauses()));
+	//cout << "AAA" << endl;
 	pair<int,vector<int>> initial_eval = initial_evaluation(initial_solution);
+	//cout << "AAAA" << endl;
 	for(int i = 0; i < initial_solution.size(); i++) {
+		//cout << "B" << endl;
 		(*occupancies)[i] = initial_solution;
 		(*scores)[i] = initial_eval.first;
 		(*clause_credits)[i] = initial_eval.second;
@@ -25,36 +31,47 @@ Neighbourhood::Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, T
 		if((*scores)[i] > (*scores)[best_neighbour]) {
 			best_neighbour = i;
 		}
+		//cout << "C" << endl;
 	}
+	//cout << "neighbourhood instance created!" << endl;
 }
 
-void Neighbourhood::update(int modified_bit) {
+bool Neighbourhood::update(int modified_bit) {
 	current_occupancy[modified_bit] = !current_occupancy[modified_bit];
 	tabulist->emplace(current_occupancy);
-	best_neighbour = 0;
+	best_neighbour = -1;
 	for(int i = 0; i < occupancies->size(); i++) {
 		toggleBit((*occupancies)[i], (*scores)[i], (*clause_credits)[i], modified_bit);
-		if((*scores)[i] > (*scores)[best_neighbour] && !tabulist->contains((*occupancies)[i])) {
+		if(!tabulist->contains((*occupancies)[i]) && (best_neighbour == -1 || 
+			(*scores)[i] > (*scores)[best_neighbour])) {
 			best_neighbour = i;
 		}
 	}
+	return best_neighbour != -1;
 }
 
 pair<int,vector<int>> Neighbourhood::initial_evaluation(vector<bool> &sol) {
+	//cout << "initial_evaluation!" << endl;
 	int score = 0;
 	vector<int> clause_credits(clauses.get_nbclauses());
+	//cout << "x"<< endl;
 	for(int i = 0; i < clauses.get_nbvars(); i++) {
-		for(int j = 0; j < (*clauses.get_vars()).size(); j++) {
+		//cout << "i = " << std::to_string(i) << " of " << std::to_string(clauses.get_nbvars()) << endl;
+		for(int j = 0; j < (*clauses.get_vars())[i].size(); j++) {
+			//cout << "j = " << std::to_string(j) << " of " << std::to_string((*clauses.get_vars()).size()) << endl;
 			if(sol[i] && (*clauses.get_vars())[i][j].second || !sol[i] && !(*clauses.get_vars())[i][j].second) {
 				clause_credits[(*clauses.get_vars())[i][j].first]++;
 			}
+			//cout << "y" << endl;
 		}
 	}
+	//cout << "mid" << endl;
 	for(int i = 0; i < clause_credits.size(); i++) {
 		if(clause_credits[i] > 0) {
 			score++;
 		}
 	}
+	//cout << "initial_evaluation finished!" << endl;
 	return make_pair(score,clause_credits);
 }
 

@@ -7,7 +7,7 @@ Reader::Reader(string url) {
 }
 
 // orientiert an Dateiformat DIMACS von http://maxsat.ia.udl.cat/
-void Reader::read() {
+bool Reader::read() {
 	ifstream infile(url);
 	// orientiert an http://stackoverflow.com/questions/7868936/read-file-line-by-line
 	string line;
@@ -22,6 +22,8 @@ void Reader::read() {
 	*iss >> format;
 	if(format != "cnf") {
 		cout << "wrong format!" << endl;
+		cout << "format should be cnf but is " << format << endl;
+		return false;
 	}
 	*iss >> nbvars >> nbclauses;
 	clauses = new vector<vector<pair<int,bool>>>(nbclauses, vector<pair<int,bool>>(0));
@@ -33,6 +35,7 @@ void Reader::read() {
 			(*clauses)[i].push_back(make_pair(abs(var),var > 0));
 		}
 	}
+	return true;
 }
 
 vector<vector<pair<int,bool>>> Reader::get_clauses()  {
@@ -50,6 +53,7 @@ int Reader::get_nbclauses() {
 string Reader::to_string() {
 	string s = "nbclauses " + std::to_string(nbclauses) + " nbvars " + std::to_string(nbvars) + "\n";
 	for(int i = 0; i < nbclauses; i++) {
+		s += std::to_string(i + 1) + " -> ";
 		for(int j = 0; j < (*clauses)[i].size(); j++) {
 			if((*clauses)[i][j].second) {
 				s += std::to_string((*clauses)[i][j].first) + " ";

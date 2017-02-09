@@ -23,7 +23,7 @@ private:
 public:
 	Neighbourhood();
 	Neighbourhood(vector<bool> &initial_solution, Clauses &clauses, Tabulist<vector<bool>>* tl);
-	void update(int modified_bit);
+	bool update(int modified_bit);
 	// -> (belegung, modified_bit, score)
 	tuple<vector<bool>,int,int> get_best_neighbour();
 	// ((belegung, score, clause_credits), bit_to_toggle) -> 

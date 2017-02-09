@@ -14,7 +14,7 @@ private:
 	vector<vector<pair<int,bool>>>* clauses;
 public:
 	Reader(string url); 
-	void read();
+	bool read();
 	vector<vector<pair<int,bool>>> get_clauses();
 	int get_nbvars();
 	int get_nbclauses();

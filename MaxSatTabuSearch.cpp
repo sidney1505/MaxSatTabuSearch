@@ -4,17 +4,20 @@ void MaxSatTabuSearch::init() {
 
 }
 
-void MaxSatTabuSearch::update_neighbourhood() {
+bool MaxSatTabuSearch::update_neighbourhood() {
 	auto best_neighbour = neighbourhood->get_best_neighbour();
-	neighbourhood->update(get<1>(best_neighbour));
+	if(!neighbourhood->update(get<1>(best_neighbour))) {
+		return false;
+	}
 	current_solution = get<0>(best_neighbour);
 	if(get<2>(best_neighbour) > best_score) {
 		best_score = get<2>(best_neighbour);
 		best_solution_found = current_solution;
 	}
 	if(augment) {
-		cout <<  neighbourhood->to_string() << endl << endl;
+		cout <<  neighbourhood->to_string() << endl;
 	}
+	return true;
 }
 
 int MaxSatTabuSearch::next() {
@@ -27,6 +30,7 @@ int MaxSatTabuSearch::eval(vector<bool> solution) {
 
 MaxSatTabuSearch::MaxSatTabuSearch(Clauses &clauses, int nbvars, int max_tabu_els,
 		int max_iterations, bool augment) {
+	max_score = clauses.get_nbclauses();
 	tabulist = new Tabulist<vector<bool>>(max_tabu_els);
 	this->augment = augment;
 	this->max_iterations = max_iterations;

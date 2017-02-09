@@ -1,4 +1,3 @@
-// # include "SMetaheuristic.h"
 #include <vector>
 #include <stdlib.h>
 #include <iostream>
@@ -18,7 +17,7 @@ protected:
 	bool augment;
 public:
 	// http://stackoverflow.com/questions/23255256/undefined-reference-to-vtable-for-class-constructor
-	virtual void update_neighbourhood() = 0;
+	virtual bool update_neighbourhood() = 0;
 	virtual int next() = 0;
 	virtual string sol_to_string(Solution solution) = 0;
 	void run();

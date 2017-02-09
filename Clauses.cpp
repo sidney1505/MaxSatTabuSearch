@@ -21,6 +21,7 @@ Clauses::Clauses(vector<vector<pair<int,bool>>> clauses, int nbvars, int nbclaus
 string Clauses::to_string() {
 	string s = "nbclauses " + std::to_string(nbclauses) + " nbvars " + std::to_string(nbvars) + "\n";
 	for(int i = 0; i < nbvars; i++) {
+		s += std::to_string(i + 1) + " -> ";
 		for(int j = 0; j < (*vars)[i].size(); j++) {
 			if((*vars)[i][j].second) {
 				s += std::to_string((*vars)[i][j].first + 1) + " ";
